@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+            
+      /* Reset styles */
+      body,
+      h1,
+      ul,
+      li,
+      a {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        list-style: none;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        display: flex;
+        align-items: center;
+        padding: 15px 40px;
+        border-bottom: 2px solid #d50000;
+        background-color: #ffffff;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        color: #d50000;
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: #d50000;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 15px;
+        display: block;
+        transition: background 0.3s;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+      }
+
+      /* Dropdown menu */
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        background: white;
+        top: 40px;
+        left: 0;
+        min-width: 150px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      .dropdown-menu li {
+        border-bottom: 1px solid #ddd;
+      }
+
+      .dropdown-menu li:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-menu a {
+        color: #333;
+        padding: 10px;
+        display: block;
+      }
+
+      .dropdown-menu a:hover {
+        background: #f1f1f1;
+      }
+
+      /* Show dropdown on hover */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      /* Mobile menu button */
+      .menu-toggle {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #d50000;
+      }
+
+      /* Centered container */
+      .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        padding-top: 80px;
+        text-align: center;
+      }
+
+      .option {
+        font-size: 22px;
+        margin: 20px 0;
+        padding: 10px;
+        transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        cursor: pointer;
+      }
+
+      .option:hover {
+        color: #d50000;
+        transform: scale(1.1);
+      }
+
+      /* Button Styling */
+      button {
+        background-color: #d50000;
+        color: white;
+        font-size: 16px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        font-weight: bold;
+        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      button:hover {
+        background-color: #a30000;
+        transform: scale(1.05);
+      }
+
+	        /* Footer */
+	        footer {
+	    background-color: #ffffff;
+	    color: #d50000;
+	    padding: 10px 0;
+	    text-align: center;
+	    width: 100%;
+	    position: relative;
+	    bottom: 0;
+	  }
+
+	  .footer-container {
+	    display: flex;
+	    justify-content: center; /* Ensures all content is centered */
+	    flex-wrap: wrap;
+	    max-width: 1200px;
+	    margin: 0 auto;
+	  }
+
+	  .footer-info {
+	    text-align: center; /* Ensures text is centered */
+	    width: 100%;
+	    font-size: 14px;
+	  }
+
+
+	        .footer-links h3,
+	        .footer-social h3 {
+	          margin-bottom: 10px;
+	        }
+
+	        .footer-links ul,
+	        .footer-social ul {
+	          list-style-type: none;
+	          padding: 0;
+	        }
+
+	        .footer-links a,
+	        .footer-social a {
+	          color: #000000;
+	          text-decoration: none;
+	        }
+
+	        .footer-links a:hover,
+	        .footer-social a:hover {
+	          text-decoration: underline;
+	          color: #d50000;
+	        }
+
+	        /* Responsive Design */
+	        @media (max-width: 768px) {
+	          .navbar {
+	            flex-direction: column;
+	            padding: 10px;
+	          }
+
+	          .nav-links {
+	            flex-direction: column;
+	            display: none;
+	            width: 100%;
+	            text-align: center;
+	          }
+
+	          .nav-links.active {
+	            display: flex;
+	          }
+
+	          .menu-toggle {
+	            display: block;
+	          }
+
+	          .container {
+	            width: 95%;
+	          }
+
+	          .footer-container {
+	            flex-direction: column;
+	            align-items: center;
+	          }
+	          
+	        }
+    
+    /* body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    } */
+    
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+    }
+    
+    .form-container, .table-container {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+        color: #d50000;
+    }
+    
+    .btn-primary {
+        background-color: #d50000;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Tasty Treat Express</div>
+        <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Menu</a></li>
+          <li><a href="#">Cart</a></li>
+          <li class="dropdown">
+            <a href="#">Admin ▼</a>
+            <ul class="dropdown-menu">
+              <li><a href="/admin/dashboard">Dashboard</a></li>
+              <li><a href="/reports/create">Create Report</a></li>
+              <li><a href="/reports/view">Manage Report</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    <div class="container">
+        <div class="card form-container">
+            <h2 class="text-center">Create User</h2>
+            <form id="userForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add User</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="view-users.html" class="btn btn-link">View Users</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-container">
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-info">
+            <p>&copy; 2025 TastyTreatExpress. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            fetch("http://localhost:8080/api/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email })
+            })
+            .then(response => response.json())
+            .then(() => {
+                alert("User added successfully!");
+                document.getElementById("userForm").reset();
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
