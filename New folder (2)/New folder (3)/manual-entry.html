@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Address</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul li {
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Your Address</h2>
+        <input type="text" id="address-input" placeholder="Start typing your city or place..." onkeyup="fetchSuggestions()">
+        <ul id="suggestions"></ul>
+        <button onclick="navigateTo('address-form.html')">Next</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

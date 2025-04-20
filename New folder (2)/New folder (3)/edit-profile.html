@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        .edit-profile-container {
+    width: 50%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.edit-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.update-btn {
+    background: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: gray;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="edit-profile-container">
+        <div class="edit-profile-header">
+            <h2>Edit Profile</h2>
+            <button onclick="closeEditProfile()">✖</button>
+        </div>
+        <div class="edit-profile-content">
+            <div class="profile-picture">
+                <img src="default-avatar.png" alt="Profile Picture">
+                <input type="file" id="uploadImage">
+            </div>
+            <form>
+                <label>Full Name</label>
+                <input type="text" value="Enter your full name">
+
+                <label>Phone Number</label>
+                <input type="text" placeholder="Enter your phone number">
+
+                <label>Email Address</label>
+                <input type="email" value="Enter your Email" disabled>
+
+                <label>City</label>
+                <input type="text" placeholder="Type your city name here">
+
+                <label>Description</label>
+                <textarea placeholder="Tell us something about yourself"></textarea>
+
+                <label>Handle</label>
+                <input type="text" placeholder="Choose a unique handle">
+
+                <label>Website</label>
+                <input type="text" placeholder="Enter website URL">
+
+                <button type="submit" class="update-btn">Update</button>
+                <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = "index.html"; // Navigate back to the main profile page
+        }
+        function closeEditProfile() {
+            goBack();
+        }
+    </script>
+</body>
+
+</html>
