@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Reports</title>
+</head>
+<body>
+    <h2>Manage Reports</h2>
+    <table>
+        <tr>
+            <th>Report ID</th>
+            <th>Report Type</th>
+            <th>Generated Date</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.reportId}"></td>
+            <td th:text="${report.reportType}"></td>
+            <td th:text="${report.generatedDateTime}"></td>
+            <td>
+                <a th:href="@{/view/{id}(id=${report.reportId})}">View</a>
+                <a th:href="@{/edit/{id}(id=${report.reportId})}">Edit</a>
+                <a th:href="@{/delete/{id}(id=${report.reportId})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Report</title>
+</head>
+<body>
+    <h2>Edit Report</h2>
+    <form th:action="@{/edit/{id}(id=${report.reportId})}" method="post">
+        <label>Report Reason:</label>
+        <select name="reportReason">
+            <option>Monthly Sales Analysis</option>
+            <option>Customer Complaints Review</option>
+            <option>Audit Requirement</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Reports</title>
+</head>
+<body>
+    <h2>View Reports</h2>
+    <form th:action="@{/view}" method="get">
+        <label>Search by:</label>
+        <select name="filterType">
+            <option value="date">Date</option>
+            <option value="id">ID</option>
+            <option value="type">Type</option>
+        </select>
+        <input type="text" name="filterValue">
+        <button type="submit">Search</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Report ID</th>
+            <th>Type</th>
+            <th>Generated Date</th>
+        </tr>
+        <tr th:each="report : ${filteredReports}">
+            <td th:text="${report.reportId}"></td>
+            <td th:text="${report.reportType}"></td>
+            <td th:text="${report.generatedDateTime}"></td>
+        </tr>
+    </table>
+</body>
+</html>
