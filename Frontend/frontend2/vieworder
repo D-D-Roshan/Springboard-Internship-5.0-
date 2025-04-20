@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Reports</title>
+
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Heading */
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+    transition: 0.3s ease-in-out;
+}
+
+/* Button Styling */
+.back-btn, button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.back-btn {
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    background: #0056b3;
+}
+
+button {
+    background: #dc3545;
+    color: white;
+}
+
+button:hover {
+    background: #c82333;
+}
+
+/* Edit Link Styling */
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>   
+</head>
+<body>
+
+    <h2 th:text="${reportType}"></h2>
+
+    <!-- Display Table for Order Reports -->
+    <table th:if="${reportType == 'Order Report'}">
+        <thead>
+            <tr>
+				<th>Report ID</th>
+                <th>Report Date</th>
+                <th>Total Orders</th>
+                <th>Completed Orders</th>
+                <th>Pending Orders</th>
+                <th>Cancelled Orders</th>
+                <th>Most Ordered Item</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="report : ${reports}">
+				<td th:text="${report.reportId != null ? #strings.replace(#numbers.formatInteger(report.reportId, 3), ' ', '0') : 'N/A'}"></td>
+
+				
+             	<td th:text="${report.reportDate}"></td>
+                <td th:text="${report.totalOrders}"></td>
+                <td th:text="${report.completedOrders}"></td>
+                <td th:text="${report.pendingOrders}"></td>
+                <td th:text="${report.cancelledOrders}"></td>
+                <td th:text="${report.mostOrderedItem}"></td>
+				<td>
+				    <a th:href="@{/reports/updateOrder/{id}(id=${report.reportId})}">Edit</a>
+				</td>
+				<td>
+					<button th:attr="onclick='deleteReport(\'Order\', ' + ${report.reportId} + ')'" >Delete</button>
+
+				</td>
+
+
+				
+				
+
+            </tr>
+        </tbody>
+    </table>
+
+  
+
+    <a href="/"><button class="back-btn">Back to Reports</button></a>
+	
+	
+		<script>
+			function deleteReport(type, reportId) {
+			    fetch(`/reports/delete${type}/${reportId}`, {
+			        method: "DELETE"
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			            alert("Deleted successfully!");
+			            location.reload();
+			        } else {
+			            alert("Delete failed.");
+			        }
+			    })
+			    .catch(error => console.error("Error:", error));
+			}
+
+		</script>
+	
+
+</body>
+</html>

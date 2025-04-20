@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - TastyTreatExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            color: #000000;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 2px solid #D50000;
+            background-color: #ffffff;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Ensure navbar is above other content */
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #D50000;
+            cursor: pointer;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 15px;
+            color: #D50000;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav a:hover, nav .active {
+            color: #000000;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            padding-top: 80px; /* Added padding to prevent overlap */
+            text-align: center; /* Center align the content */
+        }
+
+        .report-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #D50000;
+        }
+
+        .date-inputs {
+            margin: 20px 0;
+        }
+
+        .date-input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 0 10px;
+            border: 1px solid #D50000;
+            border-radius: 4px;
+        }
+
+        .generate-btn {
+            background-color: #D50000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .generate-btn:hover {
+            background-color: #c70000;
+        }
+
+        .report-summary {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #D50000;
+            border-radius: 5px;
+            text-align: left; /* Align text to the left */
+        }
+
+        .summary-item {
+            margin: 10px 0; /* Add spacing between summary items */
+            display: flex;
+            justify-content: space-between; /* Space between label and value */
+        }
+
+        .edit-btn {
+            background-color: #D50000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px; /* Space above the button */
+            display: none; /* Initially hidden */
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .edit-btn:hover {
+            background-color: #c70000;
+        }
+
+        footer {
+            background-color: #ffffff;
+            color: #D50000;
+            padding: 2px 0;
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links, .footer-social {
+            margin: 10px;
+        }
+
+        .footer-links h3, .footer-social h3 {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul, .footer-social ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-links li, .footer-social li {
+            margin: 5px 0;
+        }
+
+        .footer-links a, .footer-social a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover, .footer-social a:hover {
+            text-decoration: underline;
+            color: #D50000;
+        }
+
+        .footer-info {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<header class="navbar">
+    <div class="logo" th:text="${companyName}">TastyTreatExpress.</div>
+    <nav>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/shop}">Shop</a>
+        <a th:href="@{/dishes}">Dishes</a>
+        <a th:href="@{/cart}">Cart</a>
+        <a th:href="@{/reports}" class="active" style="color: #000000;">Reports</a> <!-- Active link for Reports -->
+        <a th:href="@{/menu-items}">Menu Items</a>
+        <a th:href="@{/restaurants}">Restaurants</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="report-section">
+        <h1 class="report-title">Generate Report</h1>
+        <div class="date-inputs">
+            <input type="date" class="date-input" id="startDate" placeholder="Start Date">
+            <span>to</span>
+            <input type="date" class="date-input" id="endDate" placeholder="End Date">
+            <button class="generate-btn" onclick="generateReport()">Generate Report</button>
+        </div>
+        <div class="report-summary" id="reportSummary">
+            <h2>Report ID: <span id="reportId">12345</span></h2> <!-- Placeholder for Report ID -->
+            <h3>Report Summary</h3>
+            <div class="summary-item">
+                <span>Total Orders:</span>
+                <span id="totalOrders" style="text-align: right;">100</span>
+            </div>
+            <div class="summary-item">
+                <span>Completed:</span>
+                <span id="completedOrders" style="text-align: right;">80</span>
+            </div>
+            <div class="summary-item">
+                <span>Pending:</span>
+                <span id="pendingOrders" style="text-align: right;">15</span>
+            </div>
+            <div class="summary-item">
+                <span>Cancelled:</span>
+                <span id="cancelledOrders" style="text-align: right;">5</span>
+            </div>
+            <div class="summary-item">
+                <span>Total Value:</span>
+                <span id="totalValue" style="text-align: right;">₹20,000</span>
+            </div>
+            <div class="summary-item">
+                <span>Most Ordered Item:</span>
+                <span id="mostOrderedItem" style="text-align: right;">Chicken Biryani</span>
+            </div>
+        </div>
+        <button class="edit-btn" id="editReportBtn" onclick="redirectToEdit()">Edit Report</button> <!-- Edit button -->
+    </section>
+</main>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <ul>
+                <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+            </ul>
+        </div>
+        <div class="footer-info">
+            <p>&copy; 2025 TastyTreatExpress. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function generateReport() {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        // Validate dates
+        if (!startDate || !endDate) {
+            alert("Please select both start and end dates.");
+            return;
+        }
+
+        if (startDate === endDate) {
+            alert("Start date and end date cannot be the same.");
+            return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+            alert("Start date cannot be after the end date.");
+            return;
+        }
+
+        // Simulate report generation logic
+        const reportId = "12345"; // This would be generated from the backend
+        document.getElementById('reportId').innerText = reportId;
+
+        // Here you would typically fetch data from the database using Spring Boot
+        // For demonstration, we are using static values
+        document.getElementById('totalOrders').innerText = "100";
+        document.getElementById('completedOrders').innerText = "80";
+        document.getElementById('pendingOrders').innerText = "15";
+        document.getElementById('cancelledOrders').innerText = "5";
+        document.getElementById('totalValue').innerText = "₹20,000";
+        document.getElementById('mostOrderedItem').innerText = "Chicken Biryani";
+
+        document.getElementById('reportSummary').style.display = 'block'; // Show the report summary
+        document.getElementById('editReportBtn').style.display = 'inline-block'; // Show the edit button
+    }
+
+    function redirectToEdit() {
+        // Redirect to the edit report page
+        window.location.href = 'ReportEdit.html'; // Replace with the actual edit report page URL
+    }
+</script>
+</body>
+</html>

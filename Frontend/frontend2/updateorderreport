@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Include the same styles as before */
+        body, h1, ul, li, a, label {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 40px;
+            border-bottom: 2px solid #d50000;
+            background-color: #ffffff;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #d50000;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #d50000;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 15px;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            padding-top: 80px;
+            text-align: center;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #d50000;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #d50000;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
+            box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #a30000;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #ffffff;
+            color: #d50000;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Tasty Treat Express</div>
+        <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Cart</a></li>
+            <li class="dropdown">
+                <a href="#">Admin ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/admin/dashboard">Dashboard</a></li>
+                    <li><a href="/reports/create">Create Report</a></li>
+                    <li><a href="/reports/view">Manage Report</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="form-container">
+            <h1>Create a Report</h1>
+
+            <form action="/reports/createOrder" method="post">
+                <h3>Order Summary Report</h3>
+
+                <label>Report Date:</label>
+                <input type="date" name="reportDate" required>
+
+                <label>Total Orders:</label>
+                <input type="number" name="totalOrders" required>
+
+                <label>Completed Orders:</label>
+                <input type="number" name="completedOrders" required>
+
+                <label>Pending Orders:</label>
+                <input type="number" name="pendingOrders" required>
+
+                <label>Cancelled Orders:</label>
+                <input type="number" name="cancelledOrders" required>
+
+                <label>Total Value:</label>
+                <input type="number" step="0.01" name="totalValue" required>
+
+                <label>Most Ordered Item:</label>
+                <input type="text" name="mostOrderedItem" required>
+
+                <button type="submit">Create Order Report</button>
+            </form>
+
+            <br>
+            <a href="/" style="color: #d50000; font-weight: bold;">Back to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <p>&copy; 2025 TastyTreatExpress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
